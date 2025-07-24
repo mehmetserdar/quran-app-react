@@ -76,7 +76,7 @@ Modern ve kullanıcı dostu İslami yaşam uygulaması. React ve TypeScript ile 
 
 1. **Repository'yi klonlayın**
 ```bash
-git clone https://github.com/yourusername/quran-app-react.git
+git clone https://github.com/mehmetserdar/quran-app-react.git
 cd quran-app-react
 ```
 
