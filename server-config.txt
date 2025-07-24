@@ -1,9 +1,0 @@
-# Nginx Configuration
-# Add this to your nginx server block
-
-location / {
-  try_files $uri $uri/ /index.html;
-}
-
-# For Apache, use the .htaccess file in the public folder
-# For other servers, configure fallback to index.html

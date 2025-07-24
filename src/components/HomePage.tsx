@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { BookOpen, Heart, Calculator, Settings, Bookmark, Clock, ArrowRight, Menu, X, Download, Play, Users, Star, Shuffle, PlayCircle, Loader, RefreshCw } from 'lucide-react';
 
@@ -44,7 +44,6 @@ interface DailyVerse {
 }
 
 const HomePage: React.FC = () => {
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -150,7 +149,7 @@ const HomePage: React.FC = () => {
   // Rastgele sure git fonksiyonu
   const goToRandomSurah = () => {
     const randomSurahId = Math.floor(Math.random() * 114) + 1;
-    navigate(`/surah/${randomSurahId}`);
+    window.location.href = `/surah/${randomSurahId}`;
   };
 
   // Kaldığın yerden devam et fonksiyonu
@@ -172,7 +171,7 @@ const HomePage: React.FC = () => {
           document.body.appendChild(notification);
           setTimeout(() => document.body.removeChild(notification), 3000);
           
-          navigate(`/surah/${surahId}#verse-${ayatNumber}`);
+          window.location.href = `/surah/${surahId}#verse-${ayatNumber}`;
         } else {
           // Sure seviyesinde devam et
           const message = `${surahName} Suresinden devam ediliyor... (${daysSinceLastRead} gün önce okunmuş)`;
@@ -182,13 +181,13 @@ const HomePage: React.FC = () => {
           document.body.appendChild(notification);
           setTimeout(() => document.body.removeChild(notification), 3000);
           
-          navigate(`/surah/${surahId}`);
+          window.location.href = `/surah/${surahId}`;
         }
       } catch (error) {
         // Fallback to old format
         const lastSurah = localStorage.getItem('lastReadSurah');
         if (lastSurah) {
-          navigate(`/surah/${lastSurah}`);
+          window.location.href = `/surah/${lastSurah}`;
         } else {
           alert('Henüz okumaya başlamadınız.');
         }
@@ -205,7 +204,7 @@ const HomePage: React.FC = () => {
         document.body.appendChild(notification);
         setTimeout(() => document.body.removeChild(notification), 3000);
         
-        navigate(`/surah/${lastSurah}`);
+        window.location.href = `/surah/${lastSurah}`;
       } else {
         alert('Henüz okumaya başlamadınız. Bir sure seçip okumaya başlayın.');
       }
