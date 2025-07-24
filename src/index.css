@@ -1,6 +1,9 @@
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -10,4 +13,99 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Hero Background Animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  33% {
+    opacity: 0.6;
+  }
+  53% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Initial hidden state for background images */
+.hero-bg-image {
+  opacity: 0;
+}
+
+/* Arabic Text Styling */
+.arabic-text {
+  font-family: 'Amiri', 'Scheherazade New', serif;
+  direction: rtl;
+  line-height: 2;
+  text-align: center;
+}
+
+/* Header Font Styling */
+.header-font {
+  font-family: 'Cairo', 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.header-font-light {
+  font-family: 'Cairo', 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.header-font-medium {
+  font-family: 'Cairo', 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Logo and Brand Text */
+.brand-text {
+  font-family: 'Cairo', 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* Section Titles */
+.section-title {
+  font-family: 'Cairo', 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+/* Card Titles */
+.card-title {
+  font-family: 'Cairo', 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #10b981;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #059669;
 }

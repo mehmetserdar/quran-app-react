@@ -1,0 +1,187 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables */
+:root {
+  --primary-color: #1a936f;
+  --secondary-color: #8FD19E;
+  --accent-color: #2d4a3e;
+  --text-dark: #1a202c;
+  --text-light: #718096;
+  --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #e6fffa 100%);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background: var(--bg-gradient);
+  min-height: 100vh;
+}
+
+/* Arabic Font Classes */
+.font-arabic {
+  font-family: 'Amiri', 'Scheherazade New', 'Arial Unicode MS', sans-serif;
+  direction: rtl;
+  unicode-bidi: embed;
+  font-weight: 400;
+  line-height: 2;
+  letter-spacing: 0.5px;
+}
+
+/* Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus Styles */
+.focus\:ring-2:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(26, 147, 111, 0.5);
+}
+
+/* Transitions */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.transition-colors {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.transition-shadow {
+  transition: box-shadow 0.3s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #157a5f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 147, 111, 0.3);
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation Classes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Loading Spinner */
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .font-arabic {
+    font-size: 1.25rem;
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+  }
+  
+  .font-arabic {
+    font-size: 16pt;
+    line-height: 1.8;
+  }
+}
