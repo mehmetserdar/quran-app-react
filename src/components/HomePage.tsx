@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { BookOpen, Heart, Calculator, Settings, Bookmark, Clock, ArrowRight, Menu, X, Download, Play, Users, Star, Shuffle, PlayCircle, Loader, RefreshCw } from 'lucide-react';
+import { BookOpen, Heart, Calculator, Settings, Bookmark, Clock, ArrowRight, Menu, X, Download, Play, Users, Star, Shuffle, PlayCircle, Loader, RefreshCw, BarChart3 } from 'lucide-react';
 
 // Sure isimleri
 const surahNames: { [key: number]: string } = {
@@ -433,6 +433,7 @@ const HomePage: React.FC = () => {
               <Link to="/surah-list" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Sureler</Link>
               <Link to="/dua-list" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Dualar</Link>
               <Link to="/bookmark" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Yer İmleri</Link>
+              <Link to="/statistics" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">İstatistikler</Link>
               <Link to="/settings" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Ayarlar</Link>
             </div>
             <div className="flex items-center space-x-4">
@@ -1069,6 +1070,14 @@ const HomePage: React.FC = () => {
                 >
                   <Bookmark className="h-5 w-5" />
                   <span>Yer İmleri</span>
+                </Link>
+                <Link 
+                  to="/statistics" 
+                  className="flex items-center space-x-3 text-gray-700 hover:text-emerald-600 py-3 border-b border-gray-100"
+                  onClick={closeMobileMenu}
+                >
+                  <BarChart3 className="h-5 w-5" />
+                  <span>İstatistikler</span>
                 </Link>
                 <Link 
                   to="/settings" 

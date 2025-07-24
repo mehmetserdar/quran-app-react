@@ -38,6 +38,9 @@ export default function SurahDetail() {
   const [activeVerse, setActiveVerse] = useState<number | null>(null);
   const [isReadingMode, setIsReadingMode] = useState(false);
   const [favoriteVerses, setFavoriteVerses] = useState<Set<string>>(new Set());
+  
+  // Okuma takibi için yeni state'ler
+  const [readAyahs, setReadAyahs] = useState<Set<number>>(new Set());
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -416,6 +419,110 @@ export default function SurahDetail() {
         }
       }, 500);
     }
+  }, [surahData]);
+
+  // Okuma takibi için useEffect
+  useEffect(() => {
+    if (!surahData || !id) return;
+    
+    // Sayfa açıldığında okuma zamanını başlat
+    const startTime = Date.now();
+    
+    // Sayfa kapanırken veya ayrılırken okuma verilerini kaydet
+    const saveReadingSession = () => {
+      const sessionEndTime = Date.now();
+      const timeSpentSeconds = Math.round((sessionEndTime - startTime) / 1000);
+      const timeSpentMinutes = Math.max(0.5, Math.round(timeSpentSeconds / 60 * 10) / 10); // Minimum 0.5 dakika
+      
+      // En az 10 saniye okuma yapmışsa kaydet
+      if (timeSpentSeconds >= 10) {
+        const session = {
+          id: sessionEndTime,
+          surahId: Number(id),
+          surahName: turkishNames[Number(id)]?.name || surahData.englishName,
+          timeSpent: timeSpentMinutes,
+          ayahsRead: Math.max(1, readAyahs.size || Math.ceil(timeSpentMinutes * 2)), // Minimum 1 ayet
+          date: new Date().toISOString()
+        };
+
+        // Mevcut oturumları al
+        const existingSessions = JSON.parse(localStorage.getItem('readingSessions') || '[]');
+        existingSessions.push(session);
+        localStorage.setItem('readingSessions', JSON.stringify(existingSessions));
+
+        // Günlük istatistikleri güncelle
+        const today = new Date().toISOString().split('T')[0];
+        const dailyStats = JSON.parse(localStorage.getItem('dailyReadingStats') || '[]');
+        
+        const todayIndex = dailyStats.findIndex((day: any) => day.date === today);
+        if (todayIndex >= 0) {
+          if (!dailyStats[todayIndex].surahsRead.includes(Number(id))) {
+            dailyStats[todayIndex].surahsRead.push(Number(id));
+          }
+          dailyStats[todayIndex].timeSpent += timeSpentMinutes;
+          dailyStats[todayIndex].ayahsRead += session.ayahsRead;
+        } else {
+          dailyStats.push({
+            date: today,
+            surahsRead: [Number(id)],
+            timeSpent: timeSpentMinutes,
+            ayahsRead: session.ayahsRead
+          });
+        }
+        
+        localStorage.setItem('dailyReadingStats', JSON.stringify(dailyStats));
+      }
+    };
+
+    // Window beforeunload event'i ekle
+    const handleBeforeUnload = () => {
+      saveReadingSession();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Cleanup fonksiyonu
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      saveReadingSession();
+    };
+  }, [surahData, id, turkishNames, readAyahs]);
+
+  // Ayet takibi için intersection observer
+  useEffect(() => {
+    if (!surahData) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            const verseElement = entry.target as HTMLElement;
+            const verseId = verseElement.id;
+            const verseNumber = parseInt(verseId.replace('verse-', ''));
+            
+            if (verseNumber) {
+              setReadAyahs(prev => {
+                const newSet = new Set(prev);
+                newSet.add(verseNumber);
+                return newSet;
+              });
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: '-20% 0px -20% 0px'
+      }
+    );
+
+    // Tüm ayet elementlerini gözlemle
+    const verseElements = document.querySelectorAll('[id^="verse-"]');
+    verseElements.forEach(element => observer.observe(element));
+
+    return () => {
+      observer.disconnect();
+    };
   }, [surahData]);
 
   const loadSurah = async () => {

@@ -37,6 +37,11 @@ const Counter: React.FC = () => {
   const handleIncrement = () => {
     setCount(prev => prev + 1);
     
+    // Global counter data güncelle (istatistikler için)
+    const globalCounterData = JSON.parse(localStorage.getItem('counterData') || '{}');
+    globalCounterData[selectedZikr] = (globalCounterData[selectedZikr] || 0) + 1;
+    localStorage.setItem('counterData', JSON.stringify(globalCounterData));
+    
     if (soundEnabled) {
       // Play click sound
       const audio = new Audio('/sound/click.mp3');

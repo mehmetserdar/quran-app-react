@@ -9,6 +9,7 @@ import DuaDetail from './components/DuaDetail';
 import Counter from './components/Counter';
 import Settings from './components/Settings';
 import Bookmark from './components/Bookmark';
+import Statistics from './components/Statistics';
 import Privacy from './components/Privacy';
 import './App.css';
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/counter" element={<Counter />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/bookmark" element={<Bookmark />} />
+            <Route path="/statistics" element={<Statistics />} />
             <Route path="/privacy" element={<Privacy />} />
           </Routes>
         </div>
